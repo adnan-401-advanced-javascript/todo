@@ -34,7 +34,7 @@ const ToDo = () => {
 
     if (item._id) {
 
-      item.completed = !item.completed;
+      item.complete = !item.complete;
 
       let url = `${todoAPI}/${id}`;
 
