@@ -5,7 +5,7 @@ import useAjax from '../../hooks/useAjax';
 
 import './todo.scss';
 
-const todoAPI = 'http://localhost:4000/api/v1/items';
+const todoAPI = 'https://to-do-adnan.herokuapp.com/api/v1/items';
 
 
 const ToDo = () => {
