@@ -1,11 +1,11 @@
-/*
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
+import axios from "axios";
 
 import './todo.scss';
 
-const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
+const todoAPI = 'http://localhost:4000/api/v1/items';
 
 
 const ToDo = () => {
@@ -14,15 +14,15 @@ const ToDo = () => {
 
   const _addItem = (item) => {
     item.due = new Date();
-    fetch(todoAPI, {
+    axios({
+      url: todoAPI,
       method: 'post',
       mode: 'cors',
       cache: 'no-cache',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item)
+      data: item
     })
-      .then(response => response.json())
-      .then(savedItem => {
+      .then(({ data: savedItem }) => {
         setList([...list, savedItem])
       })
       .catch(console.error);
@@ -34,36 +34,57 @@ const ToDo = () => {
 
     if (item._id) {
 
-      item.complete = !item.complete;
+      item.completed = !item.completed;
 
       let url = `${todoAPI}/${id}`;
 
-      fetch(url, {
+      axios({
+        url,
         method: 'put',
         mode: 'cors',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item)
+        data: item
       })
-        .then(response => response.json())
-        .then(savedItem => {
-          setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
+        .then(() => {
+          setList(list.map(listItem => listItem._id === item._id ? item : listItem));
         })
         .catch(console.error);
     }
   };
 
   const _getTodoItems = () => {
-    fetch(todoAPI, {
+    axios({
+      url: todoAPI,
       method: 'get',
       mode: 'cors',
     })
-      .then(data => data.json())
-      .then(data => setList(data.results))
+      .then(({ data }) => setList(data.results))
       .catch(console.error);
   };
 
   useEffect(_getTodoItems, []);
+
+
+  const _deleteItem = id => {
+
+    let item = list.filter(i => i._id === id)[0] || {};
+
+    if (item._id) {
+      let url = `${todoAPI}/${id}`;
+
+      axios({
+        url,
+        method: 'delete',
+        mode: 'cors',
+        cache: 'no-cache',
+      })
+        .then(() => {
+          setList(list.filter(listItem => listItem._id !== item._id));
+        })
+        .catch(console.error);
+    }
+  };
 
   return (
     <>
@@ -82,6 +103,7 @@ const ToDo = () => {
         <div>
           <TodoList
             list={list}
+            deleteItem={_deleteItem}
             handleComplete={_toggleComplete}
           />
         </div>
@@ -91,4 +113,3 @@ const ToDo = () => {
 };
 
 export default ToDo;
-*/
