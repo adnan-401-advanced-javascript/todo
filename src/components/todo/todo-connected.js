@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-import axios from "axios";
+import useAjax from '../../hooks/useAjax';
 
 import './todo.scss';
 
@@ -11,18 +11,15 @@ const todoAPI = 'http://localhost:4000/api/v1/items';
 const ToDo = () => {
 
   const [list, setList] = useState([]);
+  const [axiosApiInstance] = useAjax();
 
   const _addItem = (item) => {
     item.due = new Date();
-    axios({
-      url: todoAPI,
-      method: 'post',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
-      data: item
-    })
-      .then(({ data: savedItem }) => {
+    axiosApiInstance(
+      todoAPI,
+      'post',
+      item
+    ).then(({ data: savedItem }) => {
         setList([...list, savedItem])
       })
       .catch(console.error);
@@ -38,14 +35,7 @@ const ToDo = () => {
 
       let url = `${todoAPI}/${id}`;
 
-      axios({
-        url,
-        method: 'put',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        data: item
-      })
+      axiosApiInstance(url, "put", item)
         .then(() => {
           setList(list.map(listItem => listItem._id === item._id ? item : listItem));
         })
@@ -54,11 +44,7 @@ const ToDo = () => {
   };
 
   const _getTodoItems = () => {
-    axios({
-      url: todoAPI,
-      method: 'get',
-      mode: 'cors',
-    })
+    axiosApiInstance(todoAPI, "get")
       .then(({ data }) => setList(data.results))
       .catch(console.error);
   };
@@ -73,12 +59,7 @@ const ToDo = () => {
     if (item._id) {
       let url = `${todoAPI}/${id}`;
 
-      axios({
-        url,
-        method: 'delete',
-        mode: 'cors',
-        cache: 'no-cache',
-      })
+      axiosApiInstance(url, "delete")
         .then(() => {
           setList(list.filter(listItem => listItem._id !== item._id));
         })
