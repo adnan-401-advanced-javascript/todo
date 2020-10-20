@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
@@ -31,11 +32,11 @@ export default () => {
     setList(items);
   }
 
-  /*
-  const editItem = (id) => {
-    this.setState({list: items});
-  }
-  */
+
+  // const editItem = (id) => {
+  //   this.setState({list: items});
+  // }
+
 
   useEffect(() => {
      let firstList = [
@@ -74,3 +75,4 @@ export default () => {
       </>
     );
 }
+*/
