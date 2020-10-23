@@ -16,6 +16,7 @@ const ToDo = () => {
   const [results, setResults] = useState([]); // allResults
   const [elementsPerPage, setElementsPerPage] = useState(5); // default 5 elements per Page
   const [show, setShow] = useState(true);
+  const [sortBy, setSortBy] = useState("difficulty");
 
   useEffect(() => {
     console.log('component did moount!');
@@ -26,10 +27,15 @@ const ToDo = () => {
   useEffect(() => {
     const list = results.slice(((page - 1) * elementsPerPage), page * elementsPerPage);
     setList(list);
-    }, [elementsPerPage, page, results])
+  }, [elementsPerPage, page, results])
+
+  useEffect(() => {
+    setResults(_sortResultItems([...results]));
+    // eslint-disable-next-line
+  }, [sortBy])
 
   const _sortResultItems = (items) => { // sortedItems desc
-    return items.sort((a, b) => (a.difficulty < b.difficulty) ? 1 : -1)
+    return items.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
   };
 
   const _getTodoItems = () => {
@@ -134,9 +140,17 @@ const ToDo = () => {
             <option value={7}>7</option>
           </select>
           <br/>
+          <label>Sort By</label>
+          &nbsp;
+          &nbsp;
+          <select defaultValue="difficulty" onChange={(e) => setSortBy(e.target.value)}>
+            <option value="difficulty">difficulty</option>
+            <option value="complete">complete</option>
+          </select>
+          <br/>
+          <br/>
           <label>hideItems</label>
           <button onClick={() => setShow(!show)}>{show + ""}</button>
-
         </div>
       </section>
     </>
