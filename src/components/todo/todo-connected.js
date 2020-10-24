@@ -142,7 +142,7 @@ const ToDo = () => {
           <label>elementsPerPage</label>
           &nbsp;
           &nbsp;
-          <select defaultValue={5} onChange={(e) => setElementsPerPage(e.target.value)}>
+          <select data-testid="elementsPerPage" defaultValue={5} onChange={(e) => setElementsPerPage(e.target.value)}>
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={7}>7</option>
@@ -151,13 +151,13 @@ const ToDo = () => {
           <label>Sort By</label>
           &nbsp;
           &nbsp;
-          <select defaultValue="difficulty" onChange={(e) => setSortBy(e.target.value)}>
+          <select data-testid="sortBy" defaultValue="difficulty" onChange={(e) => setSortBy(e.target.value)}>
             <option value="difficulty">difficulty</option>
             <option value="complete">complete</option>
           </select>
           <br/>
           <label>hideCompleted</label>
-          <button onClick={() => setShowCompleted(!showCompleted)}>{showCompleted + ""}</button>
+          <button data-testid="hideCompleted" onClick={() => setShowCompleted(!showCompleted)}>{showCompleted + ""}</button>
         </div>
       </section>
     </>
