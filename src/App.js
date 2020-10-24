@@ -8,13 +8,17 @@ import AuthProvider from './components/auth/context';
 export default class App extends React.Component {
   render() {
     return (
-      <>
+      <div data-testid="app">
+
         <AuthProvider>
           <Auth>
+
           <ToDo />
+
           </Auth>
         </AuthProvider>
-      </>
+
+      </div>
     );
   }
 }
