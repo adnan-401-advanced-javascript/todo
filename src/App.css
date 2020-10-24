@@ -1,5 +1,16 @@
+body {
+  margin: 0,
+}
 .App {
   text-align: center;
+}
+
+header {
+  background-color: black;
+}
+
+header h2 {
+  color: white;
 }
 
 .App-logo {

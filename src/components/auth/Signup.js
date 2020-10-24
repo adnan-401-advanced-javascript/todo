@@ -16,7 +16,7 @@ const Signup = () => {
 
     return (
         <>
-            <form inline
+            <form
             onSubmit={handleSubmit}
             className=" mr-sm-10"
             >

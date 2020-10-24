@@ -148,7 +148,6 @@ const ToDo = () => {
             <option value="complete">complete</option>
           </select>
           <br/>
-          <br/>
           <label>hideItems</label>
           <button onClick={() => setShow(!show)}>{show + ""}</button>
         </div>
