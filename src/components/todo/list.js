@@ -3,19 +3,23 @@ import React from 'react';
 class TodoList extends React.Component {
 
   render() {
+    console.log(this.props.list)
+
     return (
       <ul>
         {this.props.list.map(item => (
           <li
-            className={`complete-${item.complete.toString()}`}
             key={item._id}
           >
-            <span onClick={() => this.props.handleComplete(item._id)}>
-              {item.text}
+            <span style={{float: "left", display: "inline"}} onClick={() => this.props.handleComplete(item._id)}>
+              <b>text</b> {item.text} &nbsp;
+              <b>difficulty</b> {item.difficulty} &nbsp;
+              <b>complete</b> &nbsp;
+              <b style={{"backgroundColor": item.complete ? "red": "green", "color": "white"}}>{item.complete ? "completed": "pending"}</b>
+              <br/>
+              <br/>
+              <b>assignee</b> {item.assignee}
             </span>
-          <button onClick={() => this.props.editItem(item._id)}>
-          edit
-          </button>
           <button onClick={() => this.props.deleteItem(item._id)}>
           del
           </button>
