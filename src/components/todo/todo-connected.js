@@ -15,7 +15,7 @@ const ToDo = () => {
   const [page, setPage] = useState(0);
   const [results, setResults] = useState([]); // allResults
   const [elementsPerPage, setElementsPerPage] = useState(5); // default 5 elements per Page
-  const [show, setShow] = useState(true);
+  const [showCompleted, setShowCompleted] = useState(true);
   const [sortBy, setSortBy] = useState("difficulty");
 
   useEffect(() => {
@@ -33,6 +33,15 @@ const ToDo = () => {
     setResults(_sortResultItems([...results]));
     // eslint-disable-next-line
   }, [sortBy])
+
+  useEffect(() => {
+    if(!showCompleted){
+      setResults(results.filter(listItem => listItem.complete !== true));
+    } else {
+      _getTodoItems();
+    }
+    // eslint-disable-next-line
+  }, [showCompleted])
 
   const _sortResultItems = (items) => { // sortedItems desc
     return items.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
@@ -116,12 +125,11 @@ const ToDo = () => {
         </div>
 
         <div>
-          { show && <TodoList
+          <TodoList
             list={list}
             deleteItem={_deleteItem}
             handleComplete={_toggleComplete}
           />
-        }
         </div>
         <div>
           <button hidden={page === 1} onClick={() =>setPage(page - 1)}>prev</button>
@@ -134,7 +142,7 @@ const ToDo = () => {
           <label>elementsPerPage</label>
           &nbsp;
           &nbsp;
-          <select defaultValue={5} onChange={(e) => setElementsPerPage(e.target.value)}>
+          <select data-testid="elementsPerPage" defaultValue={5} onChange={(e) => setElementsPerPage(e.target.value)}>
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={7}>7</option>
@@ -143,14 +151,13 @@ const ToDo = () => {
           <label>Sort By</label>
           &nbsp;
           &nbsp;
-          <select defaultValue="difficulty" onChange={(e) => setSortBy(e.target.value)}>
+          <select data-testid="sortBy" defaultValue="difficulty" onChange={(e) => setSortBy(e.target.value)}>
             <option value="difficulty">difficulty</option>
             <option value="complete">complete</option>
           </select>
           <br/>
-          <br/>
-          <label>hideItems</label>
-          <button onClick={() => setShow(!show)}>{show + ""}</button>
+          <label>hideCompleted</label>
+          <button data-testid="hideCompleted" onClick={() => setShowCompleted(!showCompleted)}>{showCompleted + ""}</button>
         </div>
       </section>
     </>
