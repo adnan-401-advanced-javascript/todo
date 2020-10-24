@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useCallback } from 'react';
 
+import { Button } from "react-bootstrap"
+
 import { AuthContext } from './context';
 import Login from "./Login";
 import Signup from "./Signup";
@@ -26,7 +28,7 @@ const Auth = (props) => {
         <Then> {/* if loggedIn */}
           <If condition={context.okToContinue}>
             <Then>
-            <button onClick={() => context.logout()}>logout</button>
+            <Button variant="danger" onClick={() => context.logout()}>logout</Button>
             {props.children}
             </Then>
             <Else>

@@ -26,7 +26,7 @@ const items = mongoose.Schema({
 Phase 1: `to-do CRUD in memory` <br/>
 Phase 2: `to-do CRUD using API` <br/>
 Phase 3: `Add some configuration settings to the application` <br/>
-
+Phase 4: `Add Auth to the application` <br/>
 
 # UML
-<img src="./assets/phase-1.png" />
+<img src="./assets/phase-4.png" />

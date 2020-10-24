@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './context.js';
 
+import { Form, Col, Button } from "react-bootstrap";
+
 const Login = () => {
 
     const context = useContext(AuthContext);
@@ -14,31 +16,41 @@ const Login = () => {
 
     return (
         <>
-            <form
-            onSubmit={handleSubmit}
-            className=" mr-sm-10"
-            >
+        <center>
+        <h3><b>Login</b></h3>
+        <Form data-testid="login-form" className="col-lg-6 offset-lg-3" onSubmit={handleSubmit}>
+          <Form.Row>
+            <Form.Group as={Col} sm="4">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                  required
+                  placeholder='Username'
+                  name='username'
+                  type='text'
+                  onChange={(e) => setUsername(e.target.value)}
+                  />
+            </Form.Group>
+          </Form.Row>
 
-
-              <input
-                className="mr-sm-5"
-                placeholder='UserName'
-                name='username'
-                type='text'
-                onChange={(e) => setUsername(e.target.value)}
-                />
-
-                <input
-                className="mr-sm-5"
+          <Form.Row>
+            <Form.Group as={Col} sm="4" >
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
                 placeholder='password'
                 name='password'
-                type='text'
+                type='password'
                 onChange={(e) => setPassword(e.target.value)}
-                />
+                  />
+            </Form.Group>
+          </Form.Row>
 
-                <button type="submit" variant="dark" className="mr-sm-4" size="md">Login</button>
-                <button onClick={() => context.setSwitchToSignup(true)}>Signup</button>
-            </form>
+          <Form.Row>
+            <Button type="submit" variant="primary" className="mr-sm-4 submit-btn" size="md">Login</Button>
+            <Button variant="info" onClick={() => context.setSwitchToSignup(true)}>Signup</Button>
+            </Form.Row>
+          </Form>
+          </center>
         </>
     );
 };

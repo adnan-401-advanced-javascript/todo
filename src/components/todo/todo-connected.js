@@ -112,9 +112,9 @@ const ToDo = () => {
 
   return (
     <>
-      <header>
-        <h2 data-testid="itemsHeader">
-          There are {list.filter(item => !item.complete).length} Items To Complete
+      <header data-testid="itemsHeader">
+        <h2>
+          There are {results.filter(item => !item.complete).length} Items To Complete
         </h2>
       </header>
 
