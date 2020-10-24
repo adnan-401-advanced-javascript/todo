@@ -15,7 +15,7 @@ const ToDo = () => {
   const [page, setPage] = useState(0);
   const [results, setResults] = useState([]); // allResults
   const [elementsPerPage, setElementsPerPage] = useState(5); // default 5 elements per Page
-  const [show, setShow] = useState(true);
+  const [showCompleted, setShowCompleted] = useState(true);
   const [sortBy, setSortBy] = useState("difficulty");
 
   useEffect(() => {
@@ -33,6 +33,15 @@ const ToDo = () => {
     setResults(_sortResultItems([...results]));
     // eslint-disable-next-line
   }, [sortBy])
+
+  useEffect(() => {
+    if(!showCompleted){
+      setResults(results.filter(listItem => listItem.complete !== true));
+    } else {
+      _getTodoItems();
+    }
+    // eslint-disable-next-line
+  }, [showCompleted])
 
   const _sortResultItems = (items) => { // sortedItems desc
     return items.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
@@ -116,12 +125,11 @@ const ToDo = () => {
         </div>
 
         <div>
-          { show && <TodoList
+          <TodoList
             list={list}
             deleteItem={_deleteItem}
             handleComplete={_toggleComplete}
           />
-        }
         </div>
         <div>
           <button hidden={page === 1} onClick={() =>setPage(page - 1)}>prev</button>
@@ -148,8 +156,8 @@ const ToDo = () => {
             <option value="complete">complete</option>
           </select>
           <br/>
-          <label>hideItems</label>
-          <button onClick={() => setShow(!show)}>{show + ""}</button>
+          <label>hideCompleted</label>
+          <button onClick={() => setShowCompleted(!showCompleted)}>{showCompleted + ""}</button>
         </div>
       </section>
     </>
