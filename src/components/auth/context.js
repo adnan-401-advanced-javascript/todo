@@ -44,8 +44,13 @@ function AuthProvider (props) {
     const validateToken = useCallback( token => {
         try {
         const user = jwt.decode(token);
-        console.log(user);
-        setLoginState(true, token, user);
+        if (user){
+          console.log("user", user);
+          setLoginState(true, token, user);
+        } else {
+          console.log('Token inValid no-user');
+          setLoginState(false, null, {});
+        }
         }
         catch (e) {
         setLoginState(false, null, {});
@@ -55,7 +60,8 @@ function AuthProvider (props) {
     },[]);
 
     const logout = () => {
-        setLoginState(false, null, {});
+      cookie.remove('auth');
+      setLoginState(false, null, {});
     };
 
     const setLoginState = async (loggedIn, token, user) => {
@@ -68,9 +74,10 @@ function AuthProvider (props) {
     useEffect(() => {
         const qs = new URLSearchParams(window.location.search);
         const cookieToken = cookie.load('auth');
-        const token = qs.get('token') || cookieToken || null;
+        const token = qs.get('token') || cookieToken || null || props.token;
+        console.log("token", token)
         validateToken(token);
-    },[validateToken]);
+    },[props.token, validateToken]);
 
     const store = {
         loggedIn,

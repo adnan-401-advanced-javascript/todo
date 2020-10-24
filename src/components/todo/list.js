@@ -3,7 +3,6 @@ import React from 'react';
 class TodoList extends React.Component {
 
   render() {
-    console.log(this.props.list)
 
     return (
       <ul>
