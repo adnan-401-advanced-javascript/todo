@@ -1,8 +1,8 @@
 import React from 'react';
 
 import ToDo from './components/todo/todo-connected.js';
-import Auth from './components/auth/auth';
-import AuthProvider from './components/auth/context';
+// import Auth from './components/auth/auth';
+// import AuthProvider from './components/auth/context';
 
 import "./App.css";
 
