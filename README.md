@@ -24,7 +24,7 @@ const items = mongoose.Schema({
 ### Project Phases
 
 Phase 1: `to-do CRUD in memory`
-
+Phase 2: `to-do CRUD using API`
 
 # UML
 <img src="./assets/phase-1.png" />
