@@ -105,7 +105,7 @@ const ToDo = () => {
     <>
       <header>
         <h2>
-          There are {list.filter(item => !item.complete).length} Items To Complete
+          There are {results.filter(item => !item.complete).length} Items To Complete
         </h2>
       </header>
 
